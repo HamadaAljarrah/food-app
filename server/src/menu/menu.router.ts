@@ -10,10 +10,11 @@ export class MenuRouter extends RouteConfig {
     }
 
     routerConfig(): Application {
+        this.app.route('/menus').get([menuController.getAllMenus]);
         this.app.route('/menu/:_id').get([menuController.getMenu]);
         this.app.route('/menu').post([menuMiddleware.validateMenuBody, menuController.createMenu]);
-        this.app.route('/menu').put([]);
-        this.app.route('/menu').delete([]);
+        this.app.route('/menu/:_id').put([menuMiddleware.validateMenuBody, menuController.updateMenu]);
+        this.app.route('/menu/:_id').delete([menuController.deleteMenu]);
 
         return this.app;
     }

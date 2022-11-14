@@ -6,6 +6,9 @@ import { MenuDocument } from "./menu.model";
 const menu_schema = Joi.object<MenuDocument>({
     name: Joi.string().min(3).max(40).required(),
     category: Joi.string().min(3).max(20).required(),
+    description: Joi.string().min(3).max(400).required(),
+    price: Joi.number().min(1).max(9999).required(),
+    image: Joi.string().required(),
 })
 
 class MenuMiddleware {
@@ -13,7 +16,11 @@ class MenuMiddleware {
     public async validateMenuBody(req: Request, res: Response, next: NextFunction) {
         const result = menu_schema.validate(req.body);
         if (result.error) {
-            const response = { status: 409, success: false, message: result.error.details[0].message };
+            const response = {
+                status: 409,
+                success: false,
+                message: result.error.details[0].message
+            };
             return sendResponse(res, response);
         }
         next();

@@ -1,0 +1,16 @@
+@import "../../styles/colors";
+
+.card{
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.light{
+    background-color: $card-color;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+}
+.dark{
+    background-color: $card-color-dark;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); 
+
+}

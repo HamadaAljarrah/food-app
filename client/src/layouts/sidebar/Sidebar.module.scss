@@ -1,0 +1,28 @@
+@import "../../styles/colors";
+
+.wrapper{
+    padding: 40px 50px;
+    box-shadow: 0 12px 24px rgba(43, 29, 0, 0.075);
+    width: fit-content;
+    border-radius: 8px;
+    position: absolute;
+    top: 20px;
+    bottom: 20px;
+
+    border: 0.25px solid #dddddd;
+    
+    h1{
+        margin-bottom: 30px;
+        color: $main-color;
+    }
+    .links-container{
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        .link-container{
+            display: flex;
+            gap: 20px;
+
+        }
+    }
+}
