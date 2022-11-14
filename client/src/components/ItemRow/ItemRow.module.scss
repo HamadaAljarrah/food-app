@@ -1,51 +1,87 @@
 @import "../../styles/colors";
 
 .container {
-    height: 120px;
+    height: auto;
+    max-height: 75px;
     display: flex;
-    padding: 6px 0px;
-    gap: 15px;
-    div {
-        &:last-child {
-            margin-left: auto;
-            padding-right: 20px;
+    padding: 10px 20px;
+
+    .content {
+        display: flex;
+        overflow: scroll;
+        max-width: 25%;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        &::-webkit-scrollbar {
+            display: none;
+        }
+        img {
+            height: 50px;
+            width: 50px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        div {
             display: flex;
+            flex-direction: column;
             justify-content: space-between;
-            align-items: center;
-            gap: 30px;
-            p{
-                cursor: pointer;
+            padding: 0 15px;
+            h2 {
+                color: $main-color;
+                font-size: 1.3rem;
+            }
+            h4 {
+                font-size: 0.9rem;
             }
         }
     }
-    img {
-        height: 100%;
-        width: 10%;
-        min-width: 80px;
-        object-fit: cover;
-        border-radius: 6px;
+
+    .description {
+        margin: 0 15px;
+        overflow: scroll;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        &::-webkit-scrollbar {
+            display: none;
+        }
+        p {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
     }
-    .content{
+    .icons {
+        margin-left: auto;
+        padding-right: 20px;
         display: flex;
-        flex-direction: column;
         justify-content: space-between;
-        h2{
-            color: $main-color;
+        align-items: center;
+        gap: 30px;
+        .icon {
+            cursor: pointer;
         }
     }
 }
 
 .light {
-    border-bottom: solid 0.5px $border;
-
-    h4, p{
+    background: #ffffff;
+    border: solid 0.5px $border-soft;
+    h4,
+    p {
         color: $font-color;
+    }
+    .content {
+        border-right: solid 0.5px $border-soft;
     }
 }
 .dark {
-    border-bottom: solid 0.5px $border-dark;
-
-    h4, p{
+    background-color: $card-color-dark;
+    border: solid 0.5px $border-soft-dark;
+    h4,
+    p {
         color: $font-color-dark;
+    }
+    .content {
+        border-right: solid 0.5px $border-soft-dark;
     }
 }

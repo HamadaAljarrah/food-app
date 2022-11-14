@@ -1,0 +1,41 @@
+@import "../../styles/colors";
+.searchbar {
+    position: relative;
+
+    .icon {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 15px;
+    }
+    input {
+        height: 40px;
+        padding: 0 50px;
+        border: none;
+        border-radius: 8px;
+        &::placeholder {
+            font-weight: 600;
+        }
+        &:focus {
+            outline: solid 0.5px $main-color;
+        }
+    }
+}
+
+.light {
+    input {
+        background-color: $background-soft;
+        &::placeholder {
+            color: $gray-font;
+        }
+    }
+}
+
+.dark {
+    input {
+        background-color: $background-soft-dark;
+        &::placeholder {
+            color: $gray-font-dark;
+        }
+    }
+}

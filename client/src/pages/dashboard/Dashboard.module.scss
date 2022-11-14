@@ -1,20 +1,63 @@
 @import "../../styles/colors";
 
-.container{
+.container {
     min-width: 100vw;
     min-height: 100vh;
-    .item-container{
+    .search-card {
+        margin-bottom: 20px;
+        padding: 20px 30px;
         display: flex;
-        flex-direction: column;
-        gap: 12px;
-        padding: 30px;
+        justify-content: space-between;
+        align-items: center;
+        .create {
+            cursor: pointer;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            p {
+                color: $main-color;
+                font-weight: 600;
+            }
+        }
+    }
+    .card {
+        padding: 30px 40px;
+        .header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .items {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 20px 20px;
+            max-height: 58vh;
+            margin-bottom: 10px;
+            overflow-y: scroll;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+            &::-webkit-scrollbar {
+                display: none;
+            }
+        }
+        h2 {
+            color: $main-color;
+        }
     }
 }
 
-.light{
+.light {
     background-color: $background;
+    .items {
+        border-top: solid 0.5px $border;
+        background-color: $background-soft;
+    }
 }
-.dark{
+.dark {
     background-color: $background-dark;
-
+    .items {
+        border-top: solid 0.5px $border-dark;
+        background-color: $background-soft-dark;
+    }
 }
