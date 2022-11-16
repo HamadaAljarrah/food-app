@@ -5,15 +5,16 @@ import { DeleteIcon, EditIcon, ViewIcon } from '../Icons/Icons';
 import { useRouter } from 'next/router';
 
 export type MenuItemProps = {
-    image?: string,
+    image: string,
     name: string,
-    category?: string,
+    category: string,
     price: number,
     description: string,
+    _id: string,
 }
 
 
-export const ItemRow = ({image, name, price, description}: MenuItemProps) => {
+export const ItemRow = ({ image, name, price, description, _id }: MenuItemProps) => {
     const { theme } = useTheme();
     const router = useRouter();
 
@@ -26,12 +27,12 @@ export const ItemRow = ({image, name, price, description}: MenuItemProps) => {
                     <h4>${price}</h4>
                 </div>
             </div>
-            <div  className={classes['description']}>
+            <div className={classes['description']}>
                 <p>{description}</p>
             </div>
             <div className={classes['icons']}>
-                <ViewIcon className={classes['icon']} onClick={ ()=>window.open ('/', '_ blank')} />
-                <EditIcon className={classes['icon']} onClick={ ()=>router.push("dashboard/EditPanel") } />
+                <ViewIcon className={classes['icon']} onClick={() => window.open('/', '_ blank')} />
+                <EditIcon className={classes['icon']} onClick={() => router.push("dashboard/EditPanel/" + _id)} />
                 <DeleteIcon className={classes['icon']} />
             </div>
         </div>

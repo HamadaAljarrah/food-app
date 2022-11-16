@@ -1,4 +1,5 @@
 import React from 'react'
+import { SERVER_URL } from '../../../config';
 import { Card } from '../../components/Card/Card';
 import { CreateIcon, SortIcon } from '../../components/Icons/Icons';
 import { ItemRow, MenuItemProps } from '../../components/ItemRow/ItemRow';
@@ -8,7 +9,7 @@ import { Container } from '../../layouts/container/Container';
 import classes from "./Dashboard.module.scss"
 
 
-const Dashboard = () => {
+const Dashboard = ({ menus }: { menus: MenuItemProps[] }) => {
     const { theme } = useTheme();
     return (
         <div className={classes[theme] + " " + classes['container']}>
@@ -25,13 +26,15 @@ const Dashboard = () => {
                         <SortIcon />
                     </div>
                     <div className={classes['items']}>
-                        {DUMMY_DATA.map((menu: MenuItemProps) =>
+                        {menus.map((menu: MenuItemProps) =>
                             <ItemRow
-                                key={menu.description}
+                                key={menu._id}
                                 name={menu.name}
                                 price={menu.price}
                                 description={menu.description}
                                 image={menu.image}
+                                category={menu.category}
+                                _id={menu._id}
                             />)}
                     </div>
                 </Card>
@@ -39,27 +42,14 @@ const Dashboard = () => {
         </div>
     )
 }
-const DUMMY_DATA = [
-    {
-        name: 'Humburger',
-        price: 4.95,
-        description: 'This is the best hamburger you will eat ever!',
-        image: 'https://foodi-hamada.netlify.app/img/category_1.jpg',
-    },
-    {
-        name: 'Lax',
-        price: 7.95,
-        description: 'This is the best Lax you will eat ever!',
-        image: 'https://foodi-hamada.netlify.app/img/category_1.jpg',
-    },
-    {
-        name: 'Falafel',
-        price: 3.95,
-        description: 'This is the best falafel you will eat ever!',
-        image: 'https://foodi-hamada.netlify.app/img/category_1.jpg',
-    },
-]
-
-
+export async function getServerSideProps() {
+    const response = await fetch(SERVER_URL + "/menus");
+    const result = await response.json();
+    return {
+        props: {
+            menus: result.data
+        }
+    }
+}
 
 export default Dashboard;
