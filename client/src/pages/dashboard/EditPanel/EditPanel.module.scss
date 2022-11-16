@@ -1,0 +1,83 @@
+@import "../../../styles/colors";
+
+.container {
+    min-width: 100vw;
+    min-height: 100vh;
+    padding-top: 20px;
+
+    .card {
+        padding: 30px 40px;
+        .header {
+            margin-bottom: 20px;
+            color: $main-color;
+        }
+        .inputs-grid {
+            display: grid;
+            padding-top: 20px;
+            grid-template-rows: repeat(3, 1fr);
+            grid-template-columns: repeat(3, 1fr);
+            row-gap: 30px;
+            column-gap: 30px;
+            .name {
+                grid-column-start: 1;
+                grid-column-end: 4;
+                grid-row-start: 1;
+                grid-row-end: 2;
+            }
+            .descrip {
+                grid-column-start: 1;
+                grid-column-end: 4;
+                grid-row-start: 2;
+                grid-row-end: 3;
+            }
+            input {
+                height: 50px;
+                padding: 0 30px;
+            }
+            div {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                gap: 5px;
+            }
+            button {
+                grid-column-start: 1;
+                grid-column-end: 4;
+                grid-row-start: 4;
+                grid-row-end: 5;
+                color: white;
+                border: none;
+                background-color: $main-color;
+                height: 40px;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.light {
+    background-color: $background;
+    .inputs-grid {
+        border-top: solid 0.5px $border;
+        input {
+            border: solid 0.5px $border;
+            background-color: $background-soft;
+        }
+        label {
+            color: $font-color;
+        }
+    }
+}
+.dark {
+    background-color: $background-dark;
+    .inputs-grid {
+        border-top: solid 0.5px $border-dark;
+        input {
+            border: solid 0.5px $border-dark;
+            background-color: $background-soft-dark;
+        }
+        label {
+            color: $font-color-dark;
+        }
+    }
+}
