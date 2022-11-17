@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import React from 'react'
 import { SERVER_URL } from '../../../config';
 import { Card } from '../../components/Card/Card';
@@ -11,13 +12,15 @@ import classes from "./Dashboard.module.scss"
 
 const Dashboard = ({ menus }: { menus: MenuItemProps[] }) => {
     const { theme } = useTheme();
+    const router = useRouter();
+
     return (
         <div className={classes[theme] + " " + classes['container']}>
             <Container>
                 <Card className={classes['search-card']}>
                     <Searchbar />
                     <div className={classes['create']}>
-                        <CreateIcon />
+                        <CreateIcon onClick={()=> router.push("dashboard/EditPanel")}/>
                     </div>
                 </Card>
                 <Card className={classes['card']}>

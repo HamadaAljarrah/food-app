@@ -5,9 +5,9 @@ import cors from "cors"
 
 
 const app = express();
-app.use(json({limit: "1mb"}));
-app.use(urlencoded({limit: "1mb", extended: true }));
-app.use(cors({origin:"*"}))
+app.use(json({ limit: "5mb" }));
+app.use(urlencoded({ limit: "5mb", extended: true }))
+app.use(cors())
 
 
 

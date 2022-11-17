@@ -10,6 +10,12 @@
         .header {
             margin-bottom: 20px;
             color: $main-color;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            a{
+                color: $main-color;
+            }
         }
         .inputs-grid {
             display: grid;

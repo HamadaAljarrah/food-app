@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, {  useState } from 'react'
 import { useTheme } from '../../../context/theme-context'
 import { Container } from '../../../layouts/container/Container'
 import { Card } from '../../../components/Card/Card'
@@ -6,33 +6,33 @@ import { useForm } from "react-hook-form"
 import classes from "./EditPanel.module.scss"
 import { convertToBase64 } from '../../../helpers/imageConverter'
 import { SERVER_URL } from '../../../../config'
-import { MenuItemProps } from '../../../components/ItemRow/ItemRow'
+import { Input } from '../../../components/Input/Input'
+import Link from 'next/link'
+import { MenuItemFE } from './[_id]'
 
 
-export type MenuItemFE = {
-    image: File,
-    name: string,
-    category: string,
-    price: number,
-    description: string,
-}
 
 
-const EditPanel = ({ data }: { data: MenuItemProps }) => {
+const NewMenu = () => {
     const { theme } = useTheme();
+    const { register, handleSubmit } = useForm<MenuItemFE>()
     const [message, setMessage] = useState("");
 
-    const { register, handleSubmit } = useForm<any>()
-    const onSubmit = async (data: any) => {
+
+
+    const onSubmit = async (data: MenuItemFE) => {
+
         const image = await convertToBase64(data.image[0]);
-        const dataToSend = { ...data, image };
-        const res = await fetch("http://localhost:4000/menu", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
+        const dataToSend = { ...data, image }
+
+        const method = 'POST'
+
+        const res = await fetch(SERVER_URL + "/menu", {
+            method: method,
+            headers: { "Content-Type": "application/json", },
             body: JSON.stringify(dataToSend),
         });
+
         const result = await res.json();
         setMessage(result.message);
     }
@@ -45,31 +45,16 @@ const EditPanel = ({ data }: { data: MenuItemProps }) => {
                 <Card className={classes['card']}>
                     <div className={classes['header']}>
                         <h2>Edit Panel</h2>
+                        <Link href='/dashboard'>Cancel</Link>
                     </div>
                     {message && <p>{message}</p>}
                     <form onSubmit={handleSubmit(onSubmit)} className={classes['inputs-grid']}>
-                        <div className={classes['name']}>
-                            <label htmlFor="">Name</label>
-                            <input defaultValue={'test'} {...register('name')} placeholder='Write menu name' />
-
-                        </div>
-                        <div className={classes['descrip']}>
-                            <label htmlFor="">Title</label>
-                            <input {...register('description')} placeholder='Write menu description' />
-                        </div>
-                        <div>
-                            <label htmlFor="">Price</label>
-                            <input step="any" {...register('price')} type='number' placeholder='Set price' />
-                        </div>
-                        <div>
-                            <label htmlFor="">Category</label>
-                            <input {...register('category')} placeholder='Choose category' />
-                        </div>
-                        <div>
-                            <label htmlFor="">Image</label>
-                            <input {...register('image')} type='file' placeholder='Choose image' />
-                        </div>
-                        <button>Publish</button>
+                        <Input register={register('name')} placeholder="Write menu name" label="Name" className={classes['name']} />
+                        <Input register={register('description')} placeholder="Write menu description" label="Description" className={classes['descrip']} />
+                        <Input register={register('price')} placeholder="Set Price" label="Price" />
+                        <Input register={register('category')} placeholder="Choose category" label="Category" />
+                        <Input register={register('image')} type='file' placeholder="Choose image" label="Image" />
+                        <button type='submit'>Publish</button>
                     </form>
                 </Card>
             </Container>
@@ -77,25 +62,14 @@ const EditPanel = ({ data }: { data: MenuItemProps }) => {
     )
 }
 
-// export async function getStaticPaths() {
-//     const response = await fetch(SERVER_URL + "/menus");
-//     const result = await response.json();
-//     const paths = result.data.map((data: any) => data._id)
-//     return {
-//         paths: [...paths],
-//         fallback: false, // can also be true or 'blocking'
-//     }
-// }
-
-export async function getStaticProps() {
-    const response = await fetch(SERVER_URL + "/menus");
-    const result = await response.json();
-    return {
-        props: {
-            menus: result.data
-        }
-    }
-}
 
 
-export default EditPanel;
+export default NewMenu;
+
+
+
+
+
+
+
+

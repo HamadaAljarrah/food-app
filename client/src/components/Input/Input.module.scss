@@ -1,0 +1,25 @@
+@import "../../styles/colors";
+
+.input {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 5px;
+    input {
+        height: 50px;
+        padding: 0 30px;
+    }
+}
+
+.light {
+    input {
+        border: solid 0.5px $border;
+        background-color: $background-soft;
+    }
+}
+.dark {
+    input {
+        border: solid 0.5px $border-dark;
+        background-color: $background-soft-dark;
+    }
+}

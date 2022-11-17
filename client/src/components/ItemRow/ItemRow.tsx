@@ -3,6 +3,7 @@ import classes from "./ItemRow.module.scss"
 import { useTheme } from '../../context/theme-context'
 import { DeleteIcon, EditIcon, ViewIcon } from '../Icons/Icons';
 import { useRouter } from 'next/router';
+import { useMenuId } from '../../context/menu-context';
 
 export type MenuItemProps = {
     image: string,
@@ -17,6 +18,16 @@ export type MenuItemProps = {
 export const ItemRow = ({ image, name, price, description, _id }: MenuItemProps) => {
     const { theme } = useTheme();
     const router = useRouter();
+    const {setMenuId} = useMenuId();
+
+    const editHandler = ()=>{
+        setMenuId(_id)
+        router.push("dashboard/EditPanel/" + _id)
+    }
+
+    const handleView = ()=>{
+        window.open('/', '_ blank')
+    }
 
     return (
         <div className={classes[theme] + " " + classes['container']}>
@@ -31,8 +42,8 @@ export const ItemRow = ({ image, name, price, description, _id }: MenuItemProps)
                 <p>{description}</p>
             </div>
             <div className={classes['icons']}>
-                <ViewIcon className={classes['icon']} onClick={() => window.open('/', '_ blank')} />
-                <EditIcon className={classes['icon']} onClick={() => router.push("dashboard/EditPanel/" + _id)} />
+                <ViewIcon className={classes['icon']} onClick={handleView} />
+                <EditIcon className={classes['icon']} onClick={editHandler} />
                 <DeleteIcon className={classes['icon']} />
             </div>
         </div>
