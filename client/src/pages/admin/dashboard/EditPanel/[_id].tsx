@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
-import { useTheme } from '../../../context/theme-context'
-import { Container } from '../../../layouts/container/Container'
-import { Card } from '../../../components/Card/Card'
+import { useTheme } from '../../../../context/theme-context'
+import { Container } from '../../../../layouts/container/Container'
+import { Card } from '../../../../components/Card/Card'
 import { useForm } from "react-hook-form"
 import classes from "./EditPanel.module.scss"
-import { convertToBase64 } from '../../../helpers/imageConverter'
-import { SERVER_URL } from '../../../../config'
-import { Input } from '../../../components/Input/Input'
+import { convertToBase64 } from '../../../../helpers/imageConverter'
+import { SERVER_URL } from '../../../../../config'
+import { Input } from '../../../../components/Input/Input'
 import Link from 'next/link'
+import { Background } from '../../../../layouts/background/Background'
+import { ErrorConponent, SuccessComponent } from '../../../../components/Alert/Alert'
 
 
 export type MenuItemFE = {
@@ -22,6 +24,7 @@ const EditPanel = ({ menu }: { menu: any }) => {
     const { theme } = useTheme();
     const { register, handleSubmit } = useForm<MenuItemFE>()
     const [message, setMessage] = useState("");
+    const [success, setSuccess] = useState<boolean>();
 
 
 
@@ -46,18 +49,21 @@ const EditPanel = ({ menu }: { menu: any }) => {
 
         const result = await res.json();
         setMessage(result.message);
+        setSuccess(result.success);
     }
 
 
     return (
-        <div className={classes[theme] + " " + classes['container']}>
+        <div className={classes[theme] + " " + classes['background']}>
             <Container>
                 <Card className={classes['card']}>
                     <div className={classes['header']}>
                         <h2>Edit Panel</h2>
-                        <Link href='/dashboard'>Cancel</Link>
+                        <Link href='/admin/dashboard'>Back to dashboard</Link>
                     </div>
-                    {message && <p>{message}</p>}
+                    {message && success && <SuccessComponent message={message} />}
+                    {message && !success && <ErrorConponent message={message} />}
+
                     <form onSubmit={handleSubmit(onSubmit)} className={classes['inputs-grid']}>
                         <Input defaultValue={menu.name} register={register('name')} placeholder="Write menu name" label="Name" className={classes['name']} />
                         <Input defaultValue={menu.description} register={register('description')} placeholder="Write menu description" label="Description" className={classes['descrip']} />

@@ -1,14 +1,15 @@
-import React, {  useState } from 'react'
-import { useTheme } from '../../../context/theme-context'
-import { Container } from '../../../layouts/container/Container'
-import { Card } from '../../../components/Card/Card'
+import React, { useState } from 'react'
+import { useTheme } from '../../../../context/theme-context'
+import { Container } from '../../../../layouts/container/Container'
+import { Card } from '../../../../components/Card/Card'
 import { useForm } from "react-hook-form"
 import classes from "./EditPanel.module.scss"
-import { convertToBase64 } from '../../../helpers/imageConverter'
-import { SERVER_URL } from '../../../../config'
-import { Input } from '../../../components/Input/Input'
+import { convertToBase64 } from '../../../../helpers/imageConverter'
+import { SERVER_URL } from '../../../../../config'
+import { Input } from '../../../../components/Input/Input'
 import Link from 'next/link'
 import { MenuItemFE } from './[_id]'
+import { SuccessComponent } from '../../../../components/Alert/Alert'
 
 
 
@@ -40,14 +41,16 @@ const NewMenu = () => {
 
 
     return (
-        <div className={classes[theme] + " " + classes['container']}>
+        <div className={classes[theme] + " " + classes['background']}>
+
             <Container>
                 <Card className={classes['card']}>
                     <div className={classes['header']}>
                         <h2>Edit Panel</h2>
-                        <Link href='/dashboard'>Cancel</Link>
+                        <Link href='/admin/dashboard'>Back to dashboard</Link>
                     </div>
-                    {message && <p>{message}</p>}
+
+                    {message && <SuccessComponent message={message} />}
                     <form onSubmit={handleSubmit(onSubmit)} className={classes['inputs-grid']}>
                         <Input register={register('name')} placeholder="Write menu name" label="Name" className={classes['name']} />
                         <Input register={register('description')} placeholder="Write menu description" label="Description" className={classes['descrip']} />

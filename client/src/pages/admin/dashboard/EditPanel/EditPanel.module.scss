@@ -1,8 +1,9 @@
-@import "../../../styles/colors";
+@import "../../../../styles/colors";
 
-.container {
+.background {
     min-width: 100vw;
     min-height: 100vh;
+    position: relative;
     padding-top: 20px;
 
     .card {

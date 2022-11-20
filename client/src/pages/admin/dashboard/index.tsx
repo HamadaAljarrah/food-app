@@ -1,28 +1,40 @@
 import { useRouter } from 'next/router';
-import React from 'react'
-import { SERVER_URL } from '../../../config';
-import { Card } from '../../components/Card/Card';
-import { CreateIcon, SortIcon } from '../../components/Icons/Icons';
-import { ItemRow, MenuItemProps } from '../../components/ItemRow/ItemRow';
-import { Searchbar } from '../../components/SearchBar/Searchbar';
-import { useTheme } from '../../context/theme-context';
-import { Container } from '../../layouts/container/Container';
+import React, { useState } from 'react'
+import { SERVER_URL } from '../../../../config';
+import { Card } from '../../../components/Card/Card';
+import { CreateIcon, SortIcon } from '../../../components/Icons/Icons';
+import { ItemRow, MenuItemProps } from '../../../components/ItemRow/ItemRow';
+import { Modal } from '../../../components/Modal/Modal';
+import { Searchbar } from '../../../components/SearchBar/Searchbar';
+import { ToggleButton } from '../../../components/ToggleButton/ToggleButton';
+import { useTheme } from '../../../context/theme-context';
+import { Container } from '../../../layouts/container/Container';
 import classes from "./Dashboard.module.scss"
 
 
 const Dashboard = ({ menus }: { menus: MenuItemProps[] }) => {
-    const { theme } = useTheme();
+    const { theme, toggleTheme } = useTheme();
     const router = useRouter();
+    const [open, setOpen] = useState(false);
 
     return (
-        <div className={classes[theme] + " " + classes['container']}>
+        <div className={classes[theme] + " " + classes['background']}>
+            {/* <button onClick={() => setOpen(true)}>Open Modal</button>
+            <Modal handleClose={() => setOpen(false)} isOpen={open}>
+                <h1>Hamada</h1>
+                <p>Test</p>
+            </Modal> */}
             <Container>
+                <div className={classes.toggle}>
+                    <ToggleButton onClick={toggleTheme} />
+                </div>
                 <Card className={classes['search-card']}>
                     <Searchbar />
                     <div className={classes['create']}>
-                        <CreateIcon onClick={()=> router.push("dashboard/EditPanel")}/>
+                        <CreateIcon onClick={() => router.push("dashboard/EditPanel")} />
                     </div>
                 </Card>
+
                 <Card className={classes['card']}>
                     <div className={classes['header']}>
                         <h2>All Menus</h2>

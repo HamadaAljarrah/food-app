@@ -1,20 +1,20 @@
-import React, { createContext, ReactNode, useContext, useState } from 'react'
+// import React, { createContext, ReactNode, useContext, useState } from 'react'
 
-interface IMenuContext {
-    menuId: string | undefined,
-    setMenuId: any
-}
+// interface IMenuContext {
+//     menuId: string | undefined,
+//     setMenuId: any
+// }
 
-const menuContext = createContext({} as IMenuContext);
+// const menuContext = createContext({} as IMenuContext);
 
 
 
-export const MenuProvider = ({ children }: { children: ReactNode }) => {
-    const [menuId, setMenuId] = useState<string>();
+// export const MenuProvider = ({ children }: { children: ReactNode }) => {
+//     const [menuId, setMenuId] = useState<string>();
 
-    return (
-        <menuContext.Provider value={{ menuId, setMenuId }}>{children}</menuContext.Provider>
-    )
-}
+//     return (
+//         <menuContext.Provider value={{ menuId, setMenuId }}>{children}</menuContext.Provider>
+//     )
+// }
 
-export const useMenuId = () => useContext(menuContext);
+// export const useMenuId = () => useContext(menuContext);

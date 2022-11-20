@@ -1,11 +1,12 @@
-@import "../../styles/colors";
+@import "../../../styles/colors";
 
-.container {
+.background {
     min-width: 100vw;
     min-height: 100vh;
+
     .search-card {
-        margin-bottom: 20px;
         padding: 20px 30px;
+        margin-bottom: 20px;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -19,6 +20,11 @@
                 font-weight: 600;
             }
         }
+    }
+    .toggle{
+        margin: 5px;
+        display: flex;
+        justify-content: flex-end;
     }
     .card {
         padding: 30px 40px;

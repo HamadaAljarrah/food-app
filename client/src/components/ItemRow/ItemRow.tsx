@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import classes from "./ItemRow.module.scss"
 import { useTheme } from '../../context/theme-context'
 import { DeleteIcon, EditIcon, ViewIcon } from '../Icons/Icons';
 import { useRouter } from 'next/router';
-import { useMenuId } from '../../context/menu-context';
+import { SERVER_URL } from '../../../config';
+
 
 export type MenuItemProps = {
     image: string,
@@ -18,15 +19,27 @@ export type MenuItemProps = {
 export const ItemRow = ({ image, name, price, description, _id }: MenuItemProps) => {
     const { theme } = useTheme();
     const router = useRouter();
-    const {setMenuId} = useMenuId();
+    const [message, setMessage] = useState<string>();
+    const [success, setSuccess] = useState<boolean>();
 
-    const editHandler = ()=>{
-        setMenuId(_id)
+
+    const handleEdit = ()=>{
         router.push("dashboard/EditPanel/" + _id)
     }
 
     const handleView = ()=>{
         window.open('/', '_ blank')
+    }
+
+    const handleDelete = async ()=>{
+        const response = await fetch(SERVER_URL + "/menu/"+ _id, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        const result = await response.json();
+        router.reload()
     }
 
     return (
@@ -43,8 +56,8 @@ export const ItemRow = ({ image, name, price, description, _id }: MenuItemProps)
             </div>
             <div className={classes['icons']}>
                 <ViewIcon className={classes['icon']} onClick={handleView} />
-                <EditIcon className={classes['icon']} onClick={editHandler} />
-                <DeleteIcon className={classes['icon']} />
+                <EditIcon className={classes['icon']} onClick={handleEdit} />
+                <DeleteIcon className={classes['icon']}  onClick={handleDelete}/>
             </div>
         </div>
     )
